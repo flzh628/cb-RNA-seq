@@ -28,7 +28,7 @@ while True:
     arr1 = arr0[int(len(arr0)/2):]
     if 'uncounted' not in arr1:
         if ii == 0:
-            line0 = '\t'.join(np.array(arr).take([0,1,2,3,7,8]).tolist()) # only for str in arr
+            line0 = '\t'.join(np.array(arr).take([0,1,2,3,6,7]).tolist()) # only for str in arr
             OUTput.write(line0)
             for str0 in arr1:
                 stSE = stRE.search(str0)
@@ -36,7 +36,7 @@ while True:
                 OUTput.write('\t' + stSE.group(1) + '_' + stSE.group(2).replace('Read_', 'SS'))
             OUTput.write('\t' + '\t'.join(arr1) + '\n')
         elif ii ==1:
-            line0 = '\t'.join(np.array(arr).take([0,1,2,3,7,8]).tolist())
+            line0 = '\t'.join(np.array(arr).take([0,1,2,3,6,7]).tolist())
             for i in range(len(arr1)):
                 num1, num2 = arr1[i].split('_')
                 if Type[i] == 'Read_5':
@@ -46,7 +46,7 @@ while True:
                     SS3_ex.setdefault(Sample[i], []).append(int(num1))
                     SS3_in.setdefault(Sample[i], []).append(int(num2))
         else:
-            line1 = '\t'.join(np.array(arr).take([0,1,2,3,7,8]).tolist())
+            line1 = '\t'.join(np.array(arr).take([0,1,2,3,6,7]).tolist())
             if line1 == line0:
                 for i in range(len(arr1)):
                     num1, num2 = arr1[i].split('_')
@@ -75,7 +75,7 @@ while True:
                             ratio = 1
                         OUTput.write('\t' + format(ratio, '.4f'))
                 OUTput.write('\t' + '\t'.join(numStr_arr) + '\n')
-                line0 = '\t'.join(np.array(arr).take([0,1,2,3,7,8]).tolist())
+                line0 = '\t'.join(np.array(arr).take([0,1,2,3,6,7]).tolist())
                 SS5_ex = {}; SS5_in = {}; SS3_ex = {}; SS3_in = {}
                 for i in range(len(arr1)):
                     num1, num2 = arr1[i].split('_')
