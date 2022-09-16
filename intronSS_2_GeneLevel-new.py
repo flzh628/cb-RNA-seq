@@ -3,7 +3,7 @@ import re
 import numpy as np
 import argparse
 
-parser = argparse.ArgumentParser(description='To convert intronSS-ratio to gene level. Used for 10-Columns intron-file in SS-ratio calculation.',
+parser = argparse.ArgumentParser(description='To convert intronSS-ratio to gene level. Used for TAIR10.LongRNA.intron in SS-ratio calculation.',
                                  epilog='Author: Fengli Zhao\tzhaofl@sustech.edu.cn      20220328 20220317')
 
 parser.add_argument('--inSS', type=str, required=True, help='Input file. The result of intronPos_SpliceRatio_final.py ')
@@ -24,7 +24,7 @@ while True:
     if not line:
         break
     arr = line.strip().split()
-    arr0 = arr[10:]
+    arr0 = arr[9:]
     arr1 = arr0[int(len(arr0)/2):]
     if 'uncounted' not in arr1:
         if ii == 0:
