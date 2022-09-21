@@ -20,7 +20,7 @@ The calculation method of the splicing ratio of intron at 5'splice site (SS5) an
 4. Quantification of gene expression.
 
 <code>$ stringtie -G TAIR10.gtf -o Sample.uniq.gtf -p 64 -e -b ballgown_out_ Sample -A Sample.uniq.gene.abundance Sample.uniq.bam</code><br/>
-<code>$ echo “LOC_name		Sample.uniq.bam” > Sample.uniq.gene.FPKM</code><br/>
+<code>$ echo "LOC_name		Sample.uniq.bam" > Sample.uniq.gene.FPKM</code><br/>
 <code>$ tail -n +2 Sample.uniq.gene.abundance | awk '{print $1"\t"$(NF-1)}' >> Sample.uniq.gene.FPKM</code>
 
 5. The calculation of SS ratio. Genes with FPKM ≥ 1 were used for the calculation of 5’ SS or 3’ SS ratio. The structure of the longest transcript was used as representative gene structure. 
