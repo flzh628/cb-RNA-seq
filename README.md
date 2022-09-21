@@ -13,15 +13,21 @@ $ java -jar /path/to/Trimmomatic/trimmomatic-0.39.jar PE -phred33 -threads 64 Re
 3. Read mapping. The reads with more than one reported alignment were excluded. 
 
 $ hisat2 -p 64 --dta -x /path/to/TAIR10/index/TAIR10 -1 Read1.paired.fq.gz -2 Read2.paired.fq.gz -S Sample.sam
+
 $ less Sample.sam | grep '\bNH:i:1\b' | samtools view -T /path/to/TAIR10/TAIR10.fa -h - | samtools view -bS -@ 32 - > Sample.uniq.bam
+
 $ samtools sort -@ 32 -O bam -o Sample.sort.bam -T temp Sample.uniq.bam
+
 $ rm Sample.uniq.bam && mv Sample.sort.bam Sample.uniq.bam
+
 $ samtools index Sample.uniq.bam
 
 4. Quantification of gene expression.
 
 $ stringtie -G TAIR10.gtf -o Sample.uniq.gtf -p 64 -e -b ballgown_out_ Sample -A Sample.uniq.gene.abundance Sample.uniq.bam
+
 $ echo “LOC_name		Sample.uniq.bam” > Sample.uniq.gene.FPKM
+
 $ tail -n +2 Sample.uniq.gene.abundance | awk '{print $1"\t"$(NF-1)}' >> Sample.uniq.gene.FPKM
 
 5. The calculation of SS ratio. Genes with FPKM ≥ 1 were used for the calculation of 5’ SS or 3’ SS ratio. The structure of the longest transcript was used as representative gene structure. 
@@ -37,7 +43,9 @@ $ python IntronSpliceRatio_final.py --inputs Sample1.uniq.bam,Sample2.uniq.bam -
 $ python intron_SS_ratio_diff.py --ss_res Sample1_Sample2.intron.SS-ratio --tot_Col 10000000(# total read number of Sample1) --tot_mut 11000000(# total read number of Sample2) --names Sample1,Sample2
 
 $ python intronSS_2_GeneLevel.py --inSS Sample1_Sample2.intron.SS-ratio --prefix Sample1_Sample2
+
 $ python gene_SS_ratio_diff.py Sample1_Sample2.gene.SS-ratio --tot_Col 10000000(# total read number of Sample1) --tot_mut 11000000(# total read number of Sample2) --names Sample1,Sample2
 
-$ awk ‘{print $1”\t”$7}’ Sample1_Sample2.gene.SS-ratio >Sample1.gene.SS5-ratio
+$ awk '{print $1"\t"$7}' Sample1_Sample2.gene.SS-ratio >Sample1.gene.SS5-ratio
+
 $ python ssRatio_intronNum.py --pcg TAIR10.protein_coding_genes --intronNum TAIR10.LongRNA.intron_num --ratio Sample1.gene.SS5-ratio --prefix Sample1 --mark SS5
