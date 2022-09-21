@@ -22,7 +22,7 @@ $ samtools index Sample.uniq.bam
 
 $ stringtie -G TAIR10.gtf -o Sample.uniq.gtf -p 64 -e -b ballgown_out_ Sample -A Sample.uniq.gene.abundance Sample.uniq.bam
 $ echo “LOC_name		Sample.uniq.bam” > Sample.uniq.gene.FPKM
-$ tail -n +2 Sample.uniq.gene.abundance | awk ‘{print $1”\t”$(NF-1)}’ >> Sample.uniq.gene.FPKM
+$ tail -n +2 Sample.uniq.gene.abundance | awk '{print $1"\t"$(NF-1)}' >> Sample.uniq.gene.FPKM
 
 5. The calculation of SS ratio. Genes with FPKM ≥ 1 were used for the calculation of 5’ SS or 3’ SS ratio. The structure of the longest transcript was used as representative gene structure. 
 
@@ -35,6 +35,7 @@ $ python IntronSpliceRatio_final.py --inputs Sample1.uniq.bam,Sample2.uniq.bam -
 6. Downstream analyses. Downstream analyses included identifications of differentially cleaved introns, genes, and correlation analysis between SS ratio and intron number of gene. And the average SS ratio of all the introns represents the gene’s SS ratio.
 
 $ python intron_SS_ratio_diff.py --ss_res Sample1_Sample2.intron.SS-ratio --tot_Col 10000000(# total read number of Sample1) --tot_mut 11000000(# total read number of Sample2) --names Sample1,Sample2
+
 $ python intronSS_2_GeneLevel.py --inSS Sample1_Sample2.intron.SS-ratio --prefix Sample1_Sample2
 $ python gene_SS_ratio_diff.py Sample1_Sample2.gene.SS-ratio --tot_Col 10000000(# total read number of Sample1) --tot_mut 11000000(# total read number of Sample2) --names Sample1,Sample2
 
