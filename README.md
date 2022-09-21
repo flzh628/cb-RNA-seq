@@ -33,9 +33,11 @@ $ tail -n +2 Sample.uniq.gene.abundance | awk '{print $1"\t"$(NF-1)}' >> Sample.
 5. The calculation of SS ratio. Genes with FPKM ≥ 1 were used for the calculation of 5’ SS or 3’ SS ratio. The structure of the longest transcript was used as representative gene structure. 
 
 For one sample:
+
 $ python IntronSpliceRatio_final.py --inputs Sample.uniq.bam --intron TAIR10.LongRNA.intron --output Sample.intron.SS-ratio --ex_chr ChrC,ChrM --geneflt Sample.uniq.gene.FPKM
 
 For Multiple samples:
+
 $ python IntronSpliceRatio_final.py --inputs Sample1.uniq.bam,Sample2.uniq.bam --intron TAIR10.LongRNA.intron --output Sample1_Sample2.intron.SS-ratio --ex_chr ChrC,ChrM --geneflt Sample1_Sample2.uniq.gene.FPKM
 
 6. Downstream analyses. Downstream analyses included identifications of differentially cleaved introns, genes, and correlation analysis between SS ratio and intron number of gene. And the average SS ratio of all the introns represents the gene’s SS ratio.
