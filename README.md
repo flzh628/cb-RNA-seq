@@ -13,9 +13,13 @@ $ java -jar /path/to/Trimmomatic/trimmomatic-0.39.jar PE -phred33 -threads 64 Re
 3. Read mapping. The reads with more than one reported alignment were excluded. 
 
 $ hisat2 -p 64 --dta -x /path/to/TAIR10/index/TAIR10 -1 Read1.paired.fq.gz -2 Read2.paired.fq.gz -S Sample.sam
+
 $ less Sample.sam | grep '\bNH:i:1\b' | samtools view -T /path/to/TAIR10/TAIR10.fa -h - | samtools view -bS -@ 32 - > Sample.uniq.bam
+
 $ samtools sort -@ 32 -O bam -o Sample.sort.bam -T temp Sample.uniq.bam
+
 $ rm Sample.uniq.bam && mv Sample.sort.bam Sample.uniq.bam
+
 $ samtools index Sample.uniq.bam
 
 4. Quantification of gene expression.
