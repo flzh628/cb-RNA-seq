@@ -42,3 +42,6 @@ For Multiple samples:
 
 <code>$ awk '{print $1"\t"$7}' Sample1_Sample2.gene.SS-ratio >Sample1.gene.SS5-ratio</code><br/>
 <code>$ python ssRatio_intronNum.py --pcg TAIR10.protein_coding_genes --intronNum TAIR10.LongRNA.intron_num --ratio Sample1.gene.SS5-ratio --prefix Sample1 --mark SS5</code>
+
+Reference:
+Zhang, Q., Zhao, F., Wu, Z. et al. A simple and robust method for isolating and analyzing chromatin-bound RNAs in Arabidopsis. Plant Methods 18, 135 (2022). https://doi.org/10.1186/s13007-022-00967-y
