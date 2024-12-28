@@ -5,7 +5,7 @@ from PvalueAdjust import BH_qvalues
 import argparse
 
 parser = argparse.ArgumentParser(description='To identify the differential SS-ratio introns.',
-                                 epilog='Author: Fengli Zhao\tzhaofl@sustech.edu.cn      20220801 20220401')
+                                 epilog='Author: Fengli Zhao\tzhaofl@sustech.edu.cn      20241228 20220801 20220401')
 
 parser.add_argument('--ss_res', type=str, required=True, help='The file of two-sample SS-ratio result.')
 parser.add_argument('--tot_Col', type=int, required=True, help='The total read number of Col-BAM.')
@@ -44,7 +44,7 @@ while True:
             num1_e = int(num1_5e) + int(num1_3e); num1_i = int(num1_5i) + int(num1_3i)
             num2_e = int((int(num2_5e) + int(num2_3e)) * factor + 0.5); num2_i = int((int(num2_5i) + int(num2_3i)) * factor + 0.5)
             str1 = str(num1_e) + '_' + str(num1_i); str2 = str(num2_e) + '_' + str(num2_i)
-            p_val = stats.fisher_exact([[num2_i, num2_e], [num1_i, num1_e]], alternative = 'greater')[1]
+            p_val = stats.fisher_exact([[num2_i, num2_e], [num1_i, num1_e]], alternative = 'two-sided')[1] #20241228: greater -> two-sided
             OUTput.write('\t' + str1 + '\t' + str2 + '\t' + format((num2_i/num2_e + 0.0001)/(num1_i/num1_e + 0.0001), '.2f') + '\t' + str(p_val) + '\n')
             P_vals.append(str(p_val))
 
